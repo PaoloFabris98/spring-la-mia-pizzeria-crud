@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link th:rel="stylesheet" th:href="@{/css/stile.css}" />
+    <link th:rel="stylesheet" th:href="@{/css/card.css}" />
+    <link th:rel="stylesheet" th:href="@{/css/navbar.css}" />
+</head>
+
+<body class="bg-dark">
+    <div class="container" style="background-image: url('/imgs/sfondo/background.jpg'); background-size: cover;">
+        <div class="p-3 bg-dark text-white">
+            <div th:insert="~{fragments/navbar :: navBar}"></div>
+        </div>
+        <div>
+            <form th:action="@{|/edit/${id}|}" method="post" id="addPizza-form" th:object="${pizza}" class="bg-dark text-white container">
+                <div class="m-3 p-2">
+                    <label for="Nome" class="form-label">Nome Pizza</label>
+                    <input class="form-control" type="text" id="Nome" th:field="*{nome}" placeholder="Inserisci il nome della pizza" th:errorClass="is-invalid">
+                    <div th:if="${#fields.hasErrors('nome')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="error: ${#fields.errors('nome')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-3 p-2">
+                    <label for="Descrizione" class="form-label">Descrizione</label>
+                    <textarea id="Descrizione" class="form-control" rows="4" th:field="*{descrizione}" placeholder="Descrivi la tua pizza" th:errorClass="is-invalid"></textarea>
+                    <div th:if="${#fields.hasErrors('descrizione')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="error: ${#fields.errors('descrizione')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-3 p-2">
+                    <label for="Foto" class="form-label">Foto</label>
+                    <input class="form-control" type="text" id="Foto" th:field="*{foto}" placeholder="Aggiungi una foto alla tua pizza" th:errorClass="is-invalid">
+                    <div th:if="${#fields.hasErrors('foto')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="error: ${#fields.errors('foto')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="m-3 p-2">
+                    <label for="Prezzo" class="form-label">Prezzo</label>
+                    <input class="form-control" type="number" id="Prezzo" th:field="*{prezzo}" th:errorClass="is-invalid">
+                    <div th:if="${#fields.hasErrors('prezzo')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="error: ${#fields.errors('prezzo')}" th:text="${error}"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- allergeni -->
+                <div class="m-3 p-2">
+                    <label class="form-label">Allergeni</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="glutine" th:field="*{glutine}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="glutine" >Contiene glutine</label>
+                                <div th:if="${#fields.hasErrors('glutine')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('glutine')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="lattosio" th:field="*{lattosio}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="lattosio">Contiene lattosio</label>
+                                <div th:if="${#fields.hasErrors('lattosio')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('lattosio')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="uova" th:field="*{uova}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="uova">Contiene uova</label>
+                                <div th:if="${#fields.hasErrors('uova')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('uova')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="frutta_a_guscio" th:field="*{frutta_a_guscio}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="frutta_a_guscio">Contiene frutta a guscio</label>
+                                <div th:if="${#fields.hasErrors('frutta_a_guscio')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('frutta_a_guscio')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="soia" th:field="*{soia}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="soia">Contiene soia</label>
+                                <div th:if="${#fields.hasErrors('soia')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('soia')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pesce_e_crostacei" th:field="*{pesce_e_crostacei}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="pesce_e_crostacei">Contiene pesce e crostacei</label>
+                                <div th:if="${#fields.hasErrors('pesce_e_crostacei')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('pesce_e_crostacei')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="sesamo" th:field="*{sesamo}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="sesamo">Contiene sesamo</label>
+                                <div th:if="${#fields.hasErrors('sesamo')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('sesamo')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="sedano" th:field="*{sedano}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="sedano">Contiene sedano</label>
+                                <div th:if="${#fields.hasErrors('sedano')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('sedano')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="senape" th:field="*{senape}" th:errorClass="is-invalid">
+                                <label class="form-check-label" for="senape">Contiene senape</label>
+                                <div th:if="${#fields.hasErrors('senape')}" class="invalid-feedback">
+                                    <ul>
+                                        <li th:each="error: ${#fields.errors('senape')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" value="Aggiungi Pizza" class="btn btn-primary m-3 p-2">
+                <input type="reset" value="Reset" class="btn btn-warning m-3 p-2">
+            </form>
+        </div>
+    </div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+    <!--JS-->
+    <script th:src="@{/js/app.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

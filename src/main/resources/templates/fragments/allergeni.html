@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+
+
+</head>
+
+<body>
+    <div th:fragment="allergeni(arachidi,crostacei,glutine,latte,sedano,sesamo,soia,uova)" class="d-flex justify-content-center">
+        <div th:if="${arachidi == true}"><img src="/imgs/allergeni/arachidi.png" style="width: 35px; height:auto"><img src="/imgs/allergeni/noci.png" style="width: 35px; height:auto"></div>
+        <div th:if="${crostacei == true}"><img src="/imgs/allergeni/crostacei.png" style="width: 35px; height:auto"><img src="/imgs/allergeni/pesce.png" style="width: 35px; height:auto"></div>
+        <div th:if="${glutine == true}"><img src="/imgs/allergeni/glutine.png" style="width: 35px; height:auto"></div>
+        <div th:if="${latte == true}"><img src="/imgs/allergeni/latte.png" style="width: 35px; height:auto"></div>
+        <div th:if="${sedano == true}"><img src="/imgs/allergeni/sedano.png" style="width: 35px; height:auto"></div>
+        <div th:if="${sesamo == true}"><img src="/imgs/allergeni/sesamo.png" style="width: 35px; height:auto"></div>
+        <div th:if="${soia == true}"><img src="/imgs/allergeni/soia.png" style="width: 35px; height:auto"></div>
+        <div th:if="${uova == true}"><img src="/imgs/allergeni/uova.png" style="width: 35px; height:auto"></div>
+    </div>
+
+</body>
+
+</html>
